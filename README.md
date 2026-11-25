@@ -10,7 +10,7 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-lightgrey.svg" alt="MIT license"></a>
 </p>
 
-## 🧠 At a glance
+## At a glance
 
 <!-- brainlife-app:begin (generated from the App manifest; edit the manifest, not this block) -->
 
@@ -20,19 +20,19 @@ Runs the neuronets/kwyk 0.4 GPU container on the T1w image with the chosen model
 
 | | |
 |---|---|
-| 📥 **Inputs** | `neuro/anat/t1w` |
-| 📤 **Outputs** | `neuro/parcellation/volume` ×2 · `raw` ×2 |
-| 🐳 **Container** | `neuronets/kwyk:version-0.4-gpu` |
-| ⚙️ **Resources** | 1 CPUs · 4 GB memory · 0.5 h walltime · GPU |
-| 🔗 **Run it** | [doi.org/10.25663/brainlife.app.218](https://doi.org/10.25663/brainlife.app.218) |
+| **Inputs** | `neuro/anat/t1w` |
+| **Outputs** | `neuro/parcellation/volume` ×2 · `raw` ×2 |
+| **Container** | `neuronets/kwyk:version-0.4-gpu` |
+| **Resources** | 1 CPUs · 4 GB memory · 0.5 h walltime · GPU |
+| **Run it** | [doi.org/10.25663/brainlife.app.218](https://doi.org/10.25663/brainlife.app.218) |
 
-#### 📥 Inputs
+#### Inputs
 
 | Input | Datatype | Required | Description |
 |---|---|---|---|
 | `t1` | `neuro/anat/t1w` | yes | T1-weighted image to parcellate. |
 
-#### 📤 Outputs
+#### Outputs
 
 | Output | Datatype | Description |
 |---|---|---|
@@ -42,7 +42,7 @@ Runs the neuronets/kwyk 0.4 GPU container on the T1w image with the chosen model
 | `output_fs` | `raw` | contains entrypy and variance (optional) for prediction uncertainty. |
 
 <details>
-<summary><b>⚙️ Parameters</b> (2)</summary>
+<summary><b>Parameters</b> (2)</summary>
 
 | Parameter | Type | Default | Description |
 |---|---|---|---|
@@ -53,9 +53,9 @@ Runs the neuronets/kwyk 0.4 GPU container on the T1w image with the chosen model
 
 <!-- brainlife-app:end -->
 
-## 🚀 Running the App
+## Running the App
 
-### ☁️ On brainlife.io
+### On brainlife.io
 
 Open the App at [doi.org/10.25663/brainlife.app.218](https://doi.org/10.25663/brainlife.app.218), choose a T1-weighted image (`neuro/anat/t1w`), pick a `model` and the number of Monte Carlo `samples`, and press **Execute**. The App needs a GPU node. It archives two `neuro/parcellation/volume` datasets and two `raw` datasets with the uncertainty maps.
 
@@ -67,7 +67,7 @@ Open the App at [doi.org/10.25663/brainlife.app.218](https://doi.org/10.25663/br
 
 [Nobrainer](https://github.com/neuronets/nobrainer#readme) is a deep learning framework for 3D image processing. It implements 3D convolutional models, loading and augmentation of volumetric data for TensorFlow and Keras, losses and metrics for 3D data, and utilities for training, evaluation, prediction and transfer learning. It also provides pre-trained models for brain extraction, brain segmentation and other tasks; this App runs the kwyk parcellation model from the `neuronets/kwyk:version-0.4-gpu` container.
 
-### 💻 Locally
+### Locally
 
 You need [Singularity/Apptainer](https://apptainer.org/) with GPU support (`--nv`), an NVIDIA GPU and [`jq`](https://jqlang.github.io/jq/).
 
@@ -88,7 +88,7 @@ You need [Singularity/Apptainer](https://apptainer.org/) with GPU support (`--nv
    ./main
    ```
 
-### 🧪 Sample data
+### Sample data
 
 Download a T1-weighted sample from brainlife.io with the [brainlife CLI](https://github.com/brainlife/cli):
 
@@ -98,7 +98,7 @@ bl login
 bl dataset download 5a050966eec2b300611abff2 && mv 5a050966eec2b300611abff2 testdata
 ```
 
-## 📦 Outputs
+## Outputs
 
 ```text
 parc/parc.nii.gz            mean-label parcellation in the original T1 space, with key.txt
@@ -109,12 +109,12 @@ output_fs/entropy.nii.gz    prediction entropy, conformed space (variance.nii.gz
 
 `key.txt` maps each FreeSurfer label value to the network's label index and structure name.
 
-## 🩺 Troubleshooting
+## Troubleshooting
 
 - **Which parcellation is in which space**: the code writes the original-space prediction to `parc` and the conformed-space prediction to `parc_fs`, while the registered output tags and descriptions on brainlife.io say the opposite (`parc` is tagged `freesurfer_space`). Check the image header before combining a parcellation with other data.
 - **The container fails to start**: the App runs `singularity run --nv` and needs a node with an NVIDIA GPU.
 
-## 📚 Citing
+## Citing
 
 > [!TIP]
 > If you use this App in your work, please cite the App, the software it builds on and brainlife.io (below). GitHub's **Cite this repository** button gives the App citation in APA and BibTeX.
@@ -124,12 +124,12 @@ output_fs/entropy.nii.gz    prediction entropy, conformed space (variance.nii.gz
 - Fischl. FreeSurfer. *NeuroImage* 62:774-781 (2012). [doi:10.1016/j.neuroimage.2012.01.021](https://doi.org/10.1016/j.neuroimage.2012.01.021)
 - Hayashi S, Caron BA, Heinsfeld AS, et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. *Nature Methods* 21:809–813 (2024). [doi:10.1038/s41592-024-02237-2](https://doi.org/10.1038/s41592-024-02237-2)
 
-## 👥 Authors
+## Authors
 
 - Soichi Hayashi
 - Franco Pestilli (project director)
 
-## 💰 Funding
+## Funding
 
 [![Wellcome-226486/Z/22/Z](https://img.shields.io/badge/Wellcome-226486%2FZ%2F22%2FZ-purple.svg)](https://wellcome.org/)
 [![NIH-NINDS-U24NS140384](https://img.shields.io/badge/NIH_NINDS-U24NS140384-green.svg)](https://reporter.nih.gov/project-details/11261037)
@@ -148,6 +148,6 @@ output_fs/entropy.nii.gz    prediction entropy, conformed space (variance.nii.gz
 
 <sub>brainlife.io is publicly funded, and acknowledging that support helps keep it running. This App was developed with support from Wellcome, the U.S. National Institutes of Health (including the BRAIN Initiative BRAIN CONNECTS program: The Axonal Projectome EXchange, U24NS140384, and the Center for Mesoscale Connectomics, UM1NS132207) and the U.S. National Science Foundation.</sub>
 
-## ⚖️ License
+## License
 
 [MIT](LICENSE). Nobrainer and the kwyk models are distributed under their own licenses.
