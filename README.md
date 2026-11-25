@@ -1,6 +1,38 @@
 [![Abcdspec-compliant](https://img.shields.io/badge/ABCD_Spec-v1.1-green.svg)](https://github.com/brain-life/abcd-spec)
 
 # app-NOBRAINER
+
+<!-- brainlife-app:begin (generated from the App manifest; edit the manifest, not this block) -->
+
+**Segments a T1-weighted image into a FreeSurfer-style whole-brain parcellation with the kwyk Bayesian neural network (nobrainer), with entropy and variance maps of prediction uncertainty.**
+
+Runs the neuronets/kwyk 0.4 GPU container on the T1w image with the chosen model and number of Monte Carlo samples, producing mean-label parcellations in the original and the conformed (FreeSurfer) space plus entropy and, except for the bwn model, variance maps. Needs a GPU node. Note that the code writes the original-space prediction to parc and the conformed-space prediction to parc_fs, which is the opposite of the registry descriptions (see report).
+
+Run it on brainlife.io: [https://doi.org/10.25663/brainlife.app.218](https://doi.org/10.25663/brainlife.app.218)
+
+| Input | Datatype | Required | Description |
+|---|---|---|---|
+| `t1` | `neuro/anat/t1w` | yes | T1-weighted image to parcellate. |
+
+| Output | Datatype | Description |
+|---|---|---|
+| `parc` | `neuro/parcellation/volume` | Predicted parcellation/volume in freesurfer_space. |
+| `parc_fs` | `neuro/parcellation/volume` | Predicted parcellation/volume in subject space. |
+| `output` | `raw` | contains entrypy and variance (optiona) for prediction uncertainty. |
+| `output_fs` | `raw` | contains entrypy and variance (optiona) for prediction uncertainty. |
+
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `samples` | number | `10` | Number of samples you wish to run (ignored for bwn/MAP) |
+| `model` | enum |  | kwyk model passed to -m: bvwn_multi_prior, bwn_multi or bwn (bwn is the MAP model without variance output). Options: `bvwn_multi_prior`, `bwn_multi`, `bwn`. |
+
+Runtime: container `neuronets/kwyk:version-0.4-gpu`; 1 CPUs; 4 GB memory; 0.5 h walltime; GPU.
+
+Please cite:
+- Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019). [doi:10.1038/s41597-019-0073-y](https://doi.org/10.1038/s41597-019-0073-y)
+
+<!-- brainlife-app:end -->
+
 This app executes https://github.com/neuronets/nobrainer/ - bayesian brain parcellation
 
 Nobrainer is a deep learning framework for 3D image processing. It implements several 3D convolutional models from recent literature, methods for loading and augmenting volumetric data that can be used with any TensorFlow or Keras model, losses and metrics for 3D data, and simple utilities for model training, evaluation, prediction, and transfer learning.
